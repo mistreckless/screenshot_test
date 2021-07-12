@@ -1,0 +1,3 @@
+rootProject.name = "ScreenshotTest"
+include ':app'
+include ':sreenshot_library'
