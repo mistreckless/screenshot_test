@@ -24,7 +24,7 @@ class MainActivityTest {
         ScreenshotTest.test(
             activity = activity,
             view = view,
-            imageId = "button_success.png",
+            imageId = "32455:162130",
             similarity = 100.0
         )
     }
@@ -36,7 +36,7 @@ class MainActivityTest {
         ScreenshotTest.test(
             activity = activity,
             view = view,
-            imageId = "button_failed.png",
+            imageId = "32455:162130",
             similarity = 100.0
         )
     }

@@ -23,7 +23,7 @@ object ScreenshotTest {
                     "assertion error match status ${response.status} difference ${response.difference}"
                 })
             }
-            .subscribe()
+            .blockingGet()
     }
 
 }

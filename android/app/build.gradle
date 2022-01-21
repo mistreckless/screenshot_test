@@ -48,6 +48,7 @@ ext {
 dependencies {
 
     implementation project(':sreenshot_library')
+//    implementation "ru.alfabank.android:brandbook:1.26.7"
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'

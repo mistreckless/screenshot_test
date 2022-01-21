@@ -9,6 +9,7 @@ import ru.alfabank.matcher.components.ImageCompareResult
 import ru.alfabank.matcher.components.ImageFileFactory
 import ru.alfabank.matcher.controller.MatchResponse
 import ru.alfabank.matcher.controller.MatchStatus
+import ru.alfabank.matcher.figma.FigmaService
 import ru.alfabank.matcher.utils.component1
 import ru.alfabank.matcher.utils.component2
 
@@ -19,11 +20,19 @@ interface MatcherService {
 @Service
 class DefaultMatcherService @Autowired constructor(
     private val imageFileFactory: ImageFileFactory,
-    private val imageComparator: ImageComparator
+    private val imageComparator: ImageComparator,
+    private val figmaService: FigmaService
 ) : MatcherService {
 
-    override fun compare(actualFile: MultipartFile, expectedFileId: String, similarity: Double): Mono<MatchResponse> {
-        val expectedImageMono = imageFileFactory.createFromLocalFileId(expectedFileId)
+    override fun compare(actualFile: MultipartFile, nodeId: String, similarity: Double): Mono<MatchResponse> {
+        val expectedImageMono = figmaService.getImage(nodeId)
+            .doOnNext {
+                println(it)
+            }
+            .flatMap(imageFileFactory::createFromUrl)
+            .doOnError {
+                println(it)
+            }
         val actualImageMono = imageFileFactory.createFromMultipartFile(actualFile)
 
         return Mono.zip(expectedImageMono, actualImageMono)
